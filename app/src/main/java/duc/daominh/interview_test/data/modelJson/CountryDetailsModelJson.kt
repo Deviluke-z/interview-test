@@ -28,7 +28,7 @@ data class CountryDetailsModelJson(
     @SerializedName("idd")
     val idd: Idd?,
     @SerializedName("capital")
-    val capital: List<String?>?,
+    val capital: ArrayList<String?>?,
     @SerializedName("altSpellings")
     val altSpellings: List<String?>?,
     @SerializedName("region")
@@ -62,7 +62,7 @@ data class CountryDetailsModelJson(
     @SerializedName("car")
     val car: Car?,
     @SerializedName("timezones")
-    val timezones: List<String?>?,
+    val timezones: ArrayList<String?>?,
     @SerializedName("continents")
     val continents: List<String?>?,
     @SerializedName("flags")
@@ -449,6 +449,9 @@ fun CountryDetailsModelJson.CoatOfArms.toModel(): CountryDetailsModel.CoatOfArms
 fun CountryDetailsModelJson.toModel(): CountryDetailsModel =
     CountryDetailsModel(
         name = name?.toModel() ?: CountryDetailsModel.Name(),
+        capital = capital?.filterNotNull().let { ArrayList(it) },
+        region = region ?: "",
         flags = flags?.toModel() ?: CountryDetailsModel.Flags(),
+        timezones = timezones?.filterNotNull().let { ArrayList(it) },
         coatOfArms = coatOfArms?.toModel() ?: CountryDetailsModel.CoatOfArms()
     )

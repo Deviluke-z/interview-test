@@ -53,7 +53,11 @@ class MainViewModel(
 
     /*
     * Due to the API does not support status and message param in every object
-    * So it's hard to update in case of the "Not Found" result
+    * So it's hard to update the UI in case of the "Not Found" result
+    *
+    * Example: search for Germany
+    * Return: [{"name":{"common":"Germany","official":"Federal Republic of Germany"...
+    *
     * Example: search for England
     * Return a different object: {"status":404,"message":"Not Found"}
     */

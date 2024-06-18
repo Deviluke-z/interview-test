@@ -58,6 +58,18 @@ class SearchedCountryAdapter :
                 .load(country.flags.png)
                 .placeholder(R.drawable.unavailable_image)
                 .into(view.ivFlagsImage)
+
+            view.root.setOnClickListener {
+                onItemClickListener?.let {
+                    it(country)
+                }
+            }
         }
+    }
+
+    private var onItemClickListener: ((CountryDetailsModel) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (CountryDetailsModel) -> Unit) {
+        onItemClickListener = listener
     }
 }

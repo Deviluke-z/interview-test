@@ -1,6 +1,7 @@
 package duc.daominh.interview_test.data.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class CountryDetailsModel(
     @SerializedName("name")
@@ -15,7 +16,7 @@ data class CountryDetailsModel(
     val flags: Flags = Flags(),
     @SerializedName("coatOfArms")
     val coatOfArms: CoatOfArms = CoatOfArms()
-) {
+) : Serializable {
     data class Name(
         @SerializedName("common")
         val common: String = "Unavailable",

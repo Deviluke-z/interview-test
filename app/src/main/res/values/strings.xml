@@ -5,6 +5,11 @@
     <string name="common_name_title">Common Name:</string>
     <string name="official_name_title">Official Name:</string>
     <string name="native_name_title">Native Name:</string>
-    <string name="not_found_message">Not found any result</string>
+    <string name="click_message">Click on item to see the details</string>
+    <string name="_save">Save</string>
+    <string name="capital_title">Capital:</string>
+    <string name="region_title">Region:</string>
+    <string name="coat_of_arms_title">Coat of Arms:</string>
+    <string name="timezone_title">Timezone:</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

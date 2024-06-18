@@ -27,7 +27,11 @@
         android:id="@+id/detailsFragment"
         android:name="duc.daominh.interview_test.presentation.view.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="selected_country"
+            app:argType="duc.daominh.interview_test.data.model.CountryDetailsModel" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="duc.daominh.interview_test.presentation.view.HomeFragment"

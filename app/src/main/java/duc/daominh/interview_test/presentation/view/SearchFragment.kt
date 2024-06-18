@@ -10,9 +10,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import duc.daominh.interview_test.InterviewTestApplication
+import duc.daominh.interview_test.InterviewTestApplication.Companion.DEBUG_TAG
 import duc.daominh.interview_test.R
 import duc.daominh.interview_test.data.modelJson.toModel
 import duc.daominh.interview_test.data.util.Resource
@@ -52,7 +53,13 @@ class SearchFragment : Fragment() {
             adapter = searchedCountryAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
-        binding.tvNotFound.visibility = View.INVISIBLE
+        searchedCountryAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("selected_country", it)
+            }
+            Log.d(DEBUG_TAG, "bundle sent: $bundle")
+            findNavController().navigate(R.id.action_searchFragment_to_detailsFragment, bundle)
+        }
     }
 
     private fun setupSearchView() {
@@ -74,7 +81,7 @@ class SearchFragment : Fragment() {
             when (response) {
                 is Resource.Success -> {
                     Log.d(
-                        InterviewTestApplication.DEBUG_TAG,
+                        DEBUG_TAG,
                         "SearchFragment: updateSearchingResult(): Success"
                     )
                     response.data?.let { data ->
@@ -87,11 +94,11 @@ class SearchFragment : Fragment() {
 
                 is Resource.Failure -> {
                     Log.d(
-                        InterviewTestApplication.DEBUG_TAG,
+                        DEBUG_TAG,
                         "SearchFragment: updateSearchingResult(): Failure"
                     )
                     response.message.let {
-                        Log.d(InterviewTestApplication.DEBUG_TAG, it.toString())
+                        Log.d(DEBUG_TAG, it.toString())
                         Snackbar.make(
                             requireContext(),
                             binding.root,
@@ -103,12 +110,11 @@ class SearchFragment : Fragment() {
 
                 is Resource.Loading -> {
                     Log.d(
-                        InterviewTestApplication.DEBUG_TAG,
+                        DEBUG_TAG,
                         "SearchFragment: updateSearchingResult(): Loading"
                     )
                 }
             }
-
         })
     }
 }
