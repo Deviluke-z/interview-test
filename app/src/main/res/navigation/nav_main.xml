@@ -30,7 +30,7 @@
         tools:layout="@layout/fragment_details" />
     <fragment
         android:id="@+id/homeFragment"
-        android:name="duc.daominh.interview_test.HomeFragment"
+        android:name="duc.daominh.interview_test.presentation.view.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
