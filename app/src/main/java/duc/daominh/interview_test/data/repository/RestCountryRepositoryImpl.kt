@@ -1,7 +1,9 @@
 package duc.daominh.interview_test.data.repository
 
+import duc.daominh.interview_test.data.model.CountryDetailsModel
 import duc.daominh.interview_test.data.modelJson.CountryDetailsModelJson
 import duc.daominh.interview_test.data.modelJson.CountryModelJson
+import duc.daominh.interview_test.data.repository.localSource.RestCountryLocalDataSource
 import duc.daominh.interview_test.data.repository.remoteSource.RestCountryRemoteDataSource
 import duc.daominh.interview_test.data.util.Resource
 import duc.daominh.interview_test.domain.repository.RestCountryRepository
@@ -10,7 +12,8 @@ import kotlinx.coroutines.flow.flow
 import retrofit2.Response
 
 class RestCountryRepositoryImpl(
-    private val restCountryRemoteDataSource: RestCountryRemoteDataSource
+    private val restCountryRemoteDataSource: RestCountryRemoteDataSource,
+    private val restCountryLocalDataSource: RestCountryLocalDataSource
 ) : RestCountryRepository {
 
     override suspend fun getAllCountry(): Flow<Resource<ArrayList<CountryModelJson>>> = flow {
@@ -21,6 +24,14 @@ class RestCountryRepositoryImpl(
         flow {
             emit(responseToResource(restCountryRemoteDataSource.getCountryByName(name)))
         }
+
+    override suspend fun saveCountryToDB(countryDetailsModel: CountryDetailsModel) {
+        restCountryLocalDataSource.saveCountryToDB(countryDetailsModel)
+    }
+
+    override fun getAllSavedCountry(): Flow<List<CountryDetailsModel>> {
+        return restCountryLocalDataSource.getAllSavedCountry()
+    }
 
     private fun responseToResourceList(response: Response<ArrayList<CountryModelJson>>): Resource<ArrayList<CountryModelJson>> {
         if (response.isSuccessful) {

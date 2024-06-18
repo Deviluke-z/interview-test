@@ -5,8 +5,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import duc.daominh.interview_test.data.api.CountryAPIService
+import duc.daominh.interview_test.data.db.CountryDAO
+import duc.daominh.interview_test.data.repository.localSource.RestCountryLocalDataSource
 import duc.daominh.interview_test.data.repository.remoteSource.RestCountryRemoteDataSource
-import duc.daominh.interview_test.data.repository.remoteSourceImpl.RestCountryRemoteDataSourceImpl
+import duc.daominh.interview_test.data.repository.remoteSource.RestCountryRemoteDataSourceImpl
 import javax.inject.Singleton
 
 @Module

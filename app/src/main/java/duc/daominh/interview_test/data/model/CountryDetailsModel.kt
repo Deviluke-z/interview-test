@@ -1,9 +1,16 @@
 package duc.daominh.interview_test.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
+@Entity(
+    tableName = "bookmarked_country"
+)
 data class CountryDetailsModel(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int? = null,
     @SerializedName("name")
     val name: Name = Name(),
     @SerializedName("capital")

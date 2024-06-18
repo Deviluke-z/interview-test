@@ -10,6 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import duc.daominh.interview_test.R
 import duc.daominh.interview_test.databinding.ActivityMainBinding
 import duc.daominh.interview_test.presentation.adapter.ListAllCountryAdapter
+import duc.daominh.interview_test.presentation.adapter.SavedCountryAdapter
 import duc.daominh.interview_test.presentation.adapter.SearchedCountryAdapter
 import duc.daominh.interview_test.presentation.viewmodel.MainViewModel
 import duc.daominh.interview_test.presentation.viewmodel.MainViewModelFactory
@@ -29,6 +30,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var searchedCountryAdapter: SearchedCountryAdapter
+
+    @Inject
+    lateinit var savedCountryAdapter: SavedCountryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

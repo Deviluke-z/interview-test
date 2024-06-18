@@ -74,6 +74,15 @@ dependencies {
     // Hilt
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-compiler:2.51.1")
+
+    // RoomDB
+    val room_version = "2.6.1"
+    implementation("androidx.room:room-runtime:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+
+    // Coroutines
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0")
 }
 
 // Allow references to generated code

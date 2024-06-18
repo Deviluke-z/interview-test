@@ -8,14 +8,18 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import duc.daominh.interview_test.InterviewTestApplication.Companion.DEBUG_TAG
 import duc.daominh.interview_test.InterviewTestApplication.Companion.INTERNET_NOT_AVAILABLE_MESSAGE
+import duc.daominh.interview_test.data.model.CountryDetailsModel
 import duc.daominh.interview_test.data.modelJson.CountryDetailsModelJson
 import duc.daominh.interview_test.data.modelJson.CountryModelJson
 import duc.daominh.interview_test.data.util.Resource
 import duc.daominh.interview_test.domain.usecases.GetAllCountryUseCase
+import duc.daominh.interview_test.domain.usecases.GetAllSavedCountryUseCase
 import duc.daominh.interview_test.domain.usecases.GetCountryByName
+import duc.daominh.interview_test.domain.usecases.SaveCountryToDBUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
@@ -24,7 +28,9 @@ import kotlinx.coroutines.launch
 class MainViewModel(
     private val application: Application,
     private val getAllCountryUseCase: GetAllCountryUseCase,
-    private val getCountryByName: GetCountryByName
+    private val getCountryByName: GetCountryByName,
+    private val saveCountryToDBUseCase: SaveCountryToDBUseCase,
+    private val getAllSavedCountryUseCase: GetAllSavedCountryUseCase
 ) : AndroidViewModel(application) {
 
     private val _allCountryList = MutableLiveData<Resource<ArrayList<CountryModelJson>>>()
@@ -76,6 +82,21 @@ class MainViewModel(
                 }
         } else {
             _countryBySearch.value = Resource.Failure(INTERNET_NOT_AVAILABLE_MESSAGE)
+        }
+    }
+
+    fun saveCountryToDB(countryDetailsModel: CountryDetailsModel) = viewModelScope.launch {
+        saveCountryToDBUseCase.execute(countryDetailsModel)
+    }
+
+    /*
+    * Due to the API does not support unique id in every object
+    * So currently it's hard to using onConflict in RoomDB
+    * Could use another param from the API to distinguish item
+    */
+    fun getAllSavedCountryFromDB() = liveData {
+        getAllSavedCountryUseCase.execute().collect {
+            emit(it)
         }
     }
 

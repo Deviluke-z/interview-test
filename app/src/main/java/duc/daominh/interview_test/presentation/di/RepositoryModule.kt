@@ -5,6 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import duc.daominh.interview_test.data.repository.RestCountryRepositoryImpl
+import duc.daominh.interview_test.data.repository.localSource.RestCountryLocalDataSource
 import duc.daominh.interview_test.data.repository.remoteSource.RestCountryRemoteDataSource
 import duc.daominh.interview_test.domain.repository.RestCountryRepository
 import javax.inject.Singleton
@@ -16,8 +17,9 @@ class RepositoryModule {
     @Singleton
     @Provides
     fun provideRestCountryRepository(
-        restCountryRemoteDataSource: RestCountryRemoteDataSource
+        restCountryRemoteDataSource: RestCountryRemoteDataSource,
+        restCountryLocalDataSource: RestCountryLocalDataSource
     ): RestCountryRepository {
-        return RestCountryRepositoryImpl(restCountryRemoteDataSource)
+        return RestCountryRepositoryImpl(restCountryRemoteDataSource, restCountryLocalDataSource)
     }
 }

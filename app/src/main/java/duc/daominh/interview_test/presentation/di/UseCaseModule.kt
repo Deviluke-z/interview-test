@@ -6,7 +6,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import duc.daominh.interview_test.domain.repository.RestCountryRepository
 import duc.daominh.interview_test.domain.usecases.GetAllCountryUseCase
+import duc.daominh.interview_test.domain.usecases.GetAllSavedCountryUseCase
 import duc.daominh.interview_test.domain.usecases.GetCountryByName
+import duc.daominh.interview_test.domain.usecases.SaveCountryToDBUseCase
 import javax.inject.Singleton
 
 @Module
@@ -27,5 +29,21 @@ class UseCaseModule {
         restCountryRepository: RestCountryRepository
     ): GetCountryByName {
         return GetCountryByName(restCountryRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSaveCountryToDBUseCase(
+        restCountryRepository: RestCountryRepository
+    ): SaveCountryToDBUseCase {
+        return SaveCountryToDBUseCase(restCountryRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetAllSavedCountryUseCase(
+        restCountryRepository: RestCountryRepository
+    ): GetAllSavedCountryUseCase {
+        return GetAllSavedCountryUseCase(restCountryRepository)
     }
 }

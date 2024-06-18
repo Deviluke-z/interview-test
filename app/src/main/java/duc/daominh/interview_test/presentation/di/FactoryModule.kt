@@ -6,7 +6,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import duc.daominh.interview_test.domain.usecases.GetAllCountryUseCase
+import duc.daominh.interview_test.domain.usecases.GetAllSavedCountryUseCase
 import duc.daominh.interview_test.domain.usecases.GetCountryByName
+import duc.daominh.interview_test.domain.usecases.SaveCountryToDBUseCase
 import duc.daominh.interview_test.presentation.viewmodel.MainViewModelFactory
 import javax.inject.Singleton
 
@@ -19,12 +21,16 @@ class FactoryModule {
     fun provideMainViewModelFactory(
         application: Application,
         getAllCountryUseCase: GetAllCountryUseCase,
-        getCountryByName: GetCountryByName
+        getCountryByName: GetCountryByName,
+        saveCountryToDBUseCase: SaveCountryToDBUseCase,
+        getAllSavedCountryUseCase: GetAllSavedCountryUseCase
     ): MainViewModelFactory {
         return MainViewModelFactory(
             application,
             getAllCountryUseCase,
-            getCountryByName
+            getCountryByName,
+            saveCountryToDBUseCase,
+            getAllSavedCountryUseCase
         )
     }
 }

@@ -1,4 +1,4 @@
-package duc.daominh.interview_test.data.repository.remoteSourceImpl
+package duc.daominh.interview_test.data.repository.remoteSource
 
 import duc.daominh.interview_test.data.api.CountryAPIService
 import duc.daominh.interview_test.data.modelJson.CountryDetailsModelJson
