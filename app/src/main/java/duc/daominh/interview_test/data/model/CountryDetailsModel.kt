@@ -1,23 +1,21 @@
 package duc.daominh.interview_test.data.model
 
-
 import com.google.gson.annotations.SerializedName
 
-data class CountryModel(
+data class CountryDetailsModel(
+    @SerializedName("name")
+    val name: Name = Name(),
+    @SerializedName("capital")
+    val capital: ArrayList<String> = arrayListOf(),
+    @SerializedName("region")
+    val region: String = "Unavailable",
+    @SerializedName("timezones")
+    val timezones: ArrayList<String> = arrayListOf(),
     @SerializedName("flags")
     val flags: Flags = Flags(),
-    @SerializedName("name")
-    val name: Name = Name()
+    @SerializedName("coatOfArms")
+    val coatOfArms: CoatOfArms = CoatOfArms()
 ) {
-    data class Flags(
-        @SerializedName("png")
-        val png: String = "",
-        @SerializedName("svg")
-        val svg: String = "",
-        @SerializedName("alt")
-        val alt: String = ""
-    )
-
     data class Name(
         @SerializedName("common")
         val common: String = "Unavailable",
@@ -27,7 +25,7 @@ data class CountryModel(
         val nativeName: NativeName = NativeName()
     ) {
         data class NativeName(
-            @SerializedName("vie")
+            @SerializedName("deu")
             val vie: Vie = Vie()
         ) {
             data class Vie(
@@ -38,4 +36,15 @@ data class CountryModel(
             )
         }
     }
+
+    data class Flags(
+        @SerializedName("png")
+        val png: String = ""
+    )
+
+    data class CoatOfArms(
+        @SerializedName("png")
+        val png: String = ""
+    )
 }
+

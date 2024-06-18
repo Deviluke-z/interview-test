@@ -1,6 +1,7 @@
 package duc.daominh.interview_test.data.api
 
-import duc.daominh.interview_test.data.modelJson.CountryModelJsonItem
+import duc.daominh.interview_test.data.modelJson.CountryDetailsModelJson
+import duc.daominh.interview_test.data.modelJson.CountryModelJson
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -12,12 +13,11 @@ interface CountryAPIService {
     suspend fun getAllCountry(
         @Query("fields")
         fields: String = "name,flags"
-    ): Response<ArrayList<CountryModelJsonItem>>
+    ): Response<ArrayList<CountryModelJson>>
 
     @GET("v3.1/name/{name}")
     suspend fun getCountryByName(
         @Path(value = "name", encoded = true)
         name: String
-    ): Response<CountryModelJsonItem>
-
+    ): Response<ArrayList<CountryDetailsModelJson>>
 }

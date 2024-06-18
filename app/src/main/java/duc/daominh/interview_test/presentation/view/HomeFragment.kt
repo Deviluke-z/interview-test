@@ -69,7 +69,7 @@ class HomeFragment : Fragment() {
                         Snackbar.make(
                             requireContext(),
                             binding.root,
-                            INTERNET_NOT_AVAILABLE_MESSAGE,
+                            it.toString(),
                             Snackbar.LENGTH_SHORT
                         ).show()
                     }

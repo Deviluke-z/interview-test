@@ -1,11 +1,9 @@
 package duc.daominh.interview_test.data.modelJson
 
-
 import com.google.gson.annotations.SerializedName
-import duc.daominh.interview_test.data.model.CountryModelItem
+import duc.daominh.interview_test.data.model.CountryModel
 
-
-data class CountryModelJsonItem(
+data class CountryModelJson(
     @SerializedName("flags")
     val flags: Flags?,
     @SerializedName("name")
@@ -1411,33 +1409,33 @@ data class CountryModelJsonItem(
 }
 
 
-fun CountryModelJsonItem.Name.NativeName.Vie.toModel(): CountryModelItem.Name.NativeName.Vie =
-    CountryModelItem.Name.NativeName.Vie(
+fun CountryModelJson.Name.NativeName.Vie.toModel(): CountryModel.Name.NativeName.Vie =
+    CountryModel.Name.NativeName.Vie(
         official = official ?: "",
         common = common ?: ""
     )
 
-fun CountryModelJsonItem.Name.NativeName.toModel(): CountryModelItem.Name.NativeName =
-    CountryModelItem.Name.NativeName(
-        vie = vie?.toModel() ?: CountryModelItem.Name.NativeName.Vie()
+fun CountryModelJson.Name.NativeName.toModel(): CountryModel.Name.NativeName =
+    CountryModel.Name.NativeName(
+        vie = vie?.toModel() ?: CountryModel.Name.NativeName.Vie()
     )
 
-fun CountryModelJsonItem.Name.toModel(): CountryModelItem.Name =
-    CountryModelItem.Name(
+fun CountryModelJson.Name.toModel(): CountryModel.Name =
+    CountryModel.Name(
         common = common ?: "",
         official = official ?: "",
-        nativeName = nativeName?.toModel() ?: CountryModelItem.Name.NativeName()
+        nativeName = nativeName?.toModel() ?: CountryModel.Name.NativeName()
     )
 
-fun CountryModelJsonItem.Flags.toModel(): CountryModelItem.Flags =
-    CountryModelItem.Flags(
+fun CountryModelJson.Flags.toModel(): CountryModel.Flags =
+    CountryModel.Flags(
         png = png ?: "",
         svg = svg ?: "",
         alt = alt ?: ""
     )
 
-fun CountryModelJsonItem.toModel(): CountryModelItem =
-    CountryModelItem(
-        flags = flags?.toModel() ?: CountryModelItem.Flags(),
-        name = name?.toModel() ?: CountryModelItem.Name()
+fun CountryModelJson.toModel(): CountryModel =
+    CountryModel(
+        flags = flags?.toModel() ?: CountryModel.Flags(),
+        name = name?.toModel() ?: CountryModel.Name()
     )

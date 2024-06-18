@@ -31,7 +31,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/ivCommonName"
+            android:id="@+id/tvCommonName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -48,7 +48,7 @@
             android:text="@string/official_name_title"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/ivFlagsImage"
-            app:layout_constraintTop_toBottomOf="@+id/ivCommonName" />
+            app:layout_constraintTop_toBottomOf="@+id/tvCommonName" />
 
         <TextView
             android:id="@+id/tvOfficialName"

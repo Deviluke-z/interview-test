@@ -11,7 +11,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import duc.daominh.interview_test.InterviewTestApplication.Companion.DEBUG_TAG
 import duc.daominh.interview_test.InterviewTestApplication.Companion.INTERNET_NOT_AVAILABLE_MESSAGE
-import duc.daominh.interview_test.data.modelJson.CountryModelJsonItem
+import duc.daominh.interview_test.data.modelJson.CountryDetailsModelJson
+import duc.daominh.interview_test.data.modelJson.CountryModelJson
 import duc.daominh.interview_test.data.util.Resource
 import duc.daominh.interview_test.domain.usecases.GetAllCountryUseCase
 import duc.daominh.interview_test.domain.usecases.GetCountryByName
@@ -26,8 +27,11 @@ class MainViewModel(
     private val getCountryByName: GetCountryByName
 ) : AndroidViewModel(application) {
 
-    private val _allCountryList = MutableLiveData<Resource<ArrayList<CountryModelJsonItem>>>()
-    val allCountryList: LiveData<Resource<ArrayList<CountryModelJsonItem>>> = _allCountryList
+    private val _allCountryList = MutableLiveData<Resource<ArrayList<CountryModelJson>>>()
+    val allCountryList: LiveData<Resource<ArrayList<CountryModelJson>>> = _allCountryList
+
+    private val _countryBySearch = MutableLiveData<Resource<ArrayList<CountryDetailsModelJson>>>()
+    val countryBySearch: LiveData<Resource<ArrayList<CountryDetailsModelJson>>> = _countryBySearch
 
     suspend fun fetchCountryListFromRemote() = viewModelScope.launch {
         Log.d(DEBUG_TAG, "MainViewModel: fetchCountryListFromRemote()")
@@ -44,6 +48,30 @@ class MainViewModel(
                 }
         } else {
             _allCountryList.value = Resource.Failure(INTERNET_NOT_AVAILABLE_MESSAGE)
+        }
+    }
+
+    /*
+    * Due to the API does not support status and message param in every object
+    * So it's hard to update in case of the "Not Found" result
+    * Example: search for England
+    * Return a different object: {"status":404,"message":"Not Found"}
+    */
+    fun fetchCountryBySearch(name: String) = viewModelScope.launch {
+        Log.d(DEBUG_TAG, "MainViewModel: fetchCountryBySearch()")
+        if (isNetworkAvailable(application)) {
+            getCountryByName.execute(name)
+                .flowOn(Dispatchers.IO)
+                .catch {
+                    _countryBySearch.value = Resource.Failure(it.message.toString())
+                }
+                .collect { result ->
+                    result.data?.let {
+                        _countryBySearch.value = Resource.Success(it)
+                    }
+                }
+        } else {
+            _countryBySearch.value = Resource.Failure(INTERNET_NOT_AVAILABLE_MESSAGE)
         }
     }
 

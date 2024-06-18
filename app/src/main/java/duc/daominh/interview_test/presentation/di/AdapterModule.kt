@@ -5,6 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import duc.daominh.interview_test.presentation.adapter.ListAllCountryAdapter
+import duc.daominh.interview_test.presentation.adapter.SearchedCountryAdapter
 import javax.inject.Singleton
 
 @Module
@@ -15,5 +16,11 @@ class AdapterModule {
     @Provides
     fun provideListAllCountryAdapter(): ListAllCountryAdapter {
         return ListAllCountryAdapter()
+    }
+
+    @Singleton
+    @Provides
+    fun provideSearchedCountryAdapter(): SearchedCountryAdapter {
+        return SearchedCountryAdapter()
     }
 }
